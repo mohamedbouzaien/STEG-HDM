@@ -52,7 +52,7 @@ hr {
 -------------------------------*/
 
 .ticket-ajout {
-    max-width: 330px;
+    max-width: 500px;
     margin: 100px auto;
     background: #fff;
     border-radius: 5px;
@@ -92,7 +92,16 @@ hr {
     z-index: 2;
 }
 
-.ticket-ajout input[type="text"]{
+.ticket-ajout input[type="text"], .ticket-ajout input[type="file"]{
+    margin-bottom: 15px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid #eaeaec;
+    background: #eaeaec;
+    box-shadow: none;
+    font-size: 12px;
+}
+.ticket-ajout textarea{
     margin-bottom: 15px;
     border-radius: 5px;
     -webkit-border-radius: 5px;

@@ -5,7 +5,8 @@
  */
 package com.hdm.servlets;
 
-import com.hdm.technical.RandomCode;
+import com.hdm.dao.AgentDao;
+import com.hdm.dao.DaoFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,7 +18,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author MED
  */
-public class AjouterTicketUtilisateur extends HttpServlet {
+public class RechercherAgentParMatricule extends HttpServlet {
+
+    private AgentDao agentDao;
+
+    public void init() throws ServletException {
+        DaoFactory daoFactory = DaoFactory.getInstance();
+        this.agentDao = daoFactory.getaAgentDao();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +44,10 @@ public class AjouterTicketUtilisateur extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AjouterTicketUtilisateur</title>");            
+            out.println("<title>Servlet RechercherAgentParMatricule</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AjouterTicketUtilisateur at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RechercherAgentParMatricule at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,8 +65,12 @@ public class AjouterTicketUtilisateur extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("code", RandomCode.calculCode());
-        this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterTicketUtilisateur.jsp").forward(request, response);
+        String matricule = request.getParameter("matricule");
+        response.setContentType("text/html");
+        if (!((matricule.trim()).equals(""))) {
+            boolean searchString = agentDao.rechercherParMatricule(matricule);
+            response.getWriter().write(String.valueOf(searchString));
+        }
     }
 
     /**

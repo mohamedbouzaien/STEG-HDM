@@ -61,4 +61,7 @@ public class DaoFactory {
     public AttributionAdresseIPDao getAttributionAdresseIPDao(){
         return new AttributionAdresseIPDaoImpl(this);
     }
+    public AgentDao getaAgentDao(){
+        return new AgentDaoImpl(this);
+    }
 }
