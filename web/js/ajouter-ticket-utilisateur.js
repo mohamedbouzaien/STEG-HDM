@@ -5,6 +5,7 @@
  */
 $(document).ready(function () {
     $('#details').hide();
+    $('#mp').hide();
 });
 ;(function($){
     $.fn.extend({
@@ -49,15 +50,19 @@ $('#matricule').donetyping(function(){
 			data : {
 				matricule : $('#matricule').val()
 			},
-			success : function(responseText) {
-				$('#ajaxGetUserServletResponse').text(responseText);
-                                if (responseText == "true")
+			success : function(responseJson) {
+				$('#ajaxGetUserServletResponse').text(responseJson);
+                                if (responseJson != null)
                                 {
+                                    $('#nom_prenom').text(responseJson.nom+" "+responseJson.prenom);
+                                    $('#id_agent').text(responseJson.id);
+                                    $('#mp').slideDown();
                                     $('#envoyer').prop('disabled', false);
                                 }
                                 else
                                 {
                                     $('#details').slideDown();
+                                    $('#envoyer').prop('disabled', false);
                                 }
                                 
 			}

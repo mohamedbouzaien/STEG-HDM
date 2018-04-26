@@ -27,29 +27,56 @@ public class AgentDaoImpl implements AgentDao {
     }
 
     @Override
-    public boolean rechercherParMatricule(String matricule) {
+    public Agent rechercherParMatricule(String matricule) {
         Connection connexion = null;
         PreparedStatement statement = null;
         ResultSet resultat = null;
         
         try {
             connexion = daoFactory.getConnection();
-            statement = connexion.prepareStatement("SELECT * FROM agent WHERE matricule = ?");
+            statement = connexion.prepareStatement("SELECT id, matricule, nom, prenom, adresse FROM agent WHERE matricule = ?");
             statement.setInt(1, Integer.parseInt(matricule));
             resultat = statement.executeQuery();
             if (resultat.first())
             {
-               return true;
+               Agent agent = new Agent(resultat.getInt("id"), 
+                       resultat.getString("matricule"),
+                       resultat.getString("nom"),
+                       resultat.getString("prenom"),
+                       resultat.getString("adresse"));
+               return agent;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override
-    public void ajouter(Agent agent) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Agent ajouter(Agent agent) {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = connexion.prepareStatement("INSERT INTO agent(matricule, code_unique, nom, prenom, adresse) VALUES (?,?,?,?,?);",
+                    Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, agent.getMatricule());
+            preparedStatement.setString(2, agent.getCode());
+            preparedStatement.setString(3, agent.getNom());
+            preparedStatement.setString(4, agent.getPrenom());
+            preparedStatement.setString(5, agent.getAdresse());
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                agent.setId(generatedKeys.getInt(1));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return agent;
+
+        }
+    return agent;
     }
 
 }

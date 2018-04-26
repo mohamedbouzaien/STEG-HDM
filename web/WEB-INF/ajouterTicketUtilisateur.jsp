@@ -15,7 +15,7 @@
         <meta name="author" content="ThemeBucket">
         <link rel="shortcut icon" href="#" type="image/png">
 
-        <title>Registration</title>
+        <title>Ticket</title>
 
         <link href="css/style.css" rel="stylesheet">
         <link href="css/style-responsive.css" rel="stylesheet">
@@ -31,7 +31,7 @@
 
         <div class="container">
 
-            <form class="ticket-ajout" action="index.html">
+            <form class="ticket-ajout" action="AjouterTicketUtilisateur" method="post">
                 <div class="ticket-ajout-heading text-center">
                     <h1 class="ticket-title">Ajouter ticket de reclamation</h1>
                     <img src="images/logo.png" alt=""/>
@@ -40,12 +40,12 @@
 
                 <div class="login-wrap">
                     <p>Entrez les détails du ticket</p>
-                    <input type="text" autofocus="" placeholder="<c:out value="${ code }"/>" class="form-control" disabled>
+                    <!--<input type="text" autofocus="" name="code" placeholder="<c:out value="${ code }"/>" class="form-control" disabled>-->
                     <select class="form-control" id="urgence" name="urgence">
                         <option value="">Urgence...</option>
                         <option value="0">Cruciale</option>
                         <option value="1">Moyenne</option>
-                        <option value="2">Insinifiante</option>
+                        <option value="2">Insgnifiante</option>
                     </select>
                     <select class="form-control" id="peripherique" name="peripherique">
                         <option value="">Peripherique...</option>
@@ -59,11 +59,16 @@
                     <textarea class="form-control " id="description" name="description" placeholder="Description"></textarea>
                     <input type="file" class="btn btn-default" name="fichier" id="fichier" />
                     <input type="text" autofocus="" placeholder="Matricule" name="matricule" id="matricule" class="form-control">
+                    <input type="text" name="id_agent" id="id_agent" hidden>
+                    <p id="nom_prenom"></p>
                     <div id="details">
                         <p> Entrez vos détails personnel</p>
                         <input type="text" autofocus="" placeholder="Nom" name="nom" id="nom" class="form-control">
                         <input type="text" placeholder="Prenom" name="prenom" id="prenom" class="form-control">
                         <input type="text" placeholder="Adresse bureau" name="adresse" id="adresse" class="form-control">
+                    </div>
+                    <div id="mp">
+                        <input type="password" autofocus="" placeholder="Code unique" name="motdepasse" id="motdepasse" class="form-control">
                     </div>
                     <button type="submit" id="envoyer" class="btn btn-lg btn-login btn-block" disabled>
                         <i class="fa fa-check"></i>

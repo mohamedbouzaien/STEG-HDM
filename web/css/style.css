@@ -92,7 +92,7 @@ hr {
     z-index: 2;
 }
 
-.ticket-ajout input[type="text"], .ticket-ajout input[type="file"]{
+.ticket-ajout input[type="text"], .ticket-ajout input[type="file"], .ticket-ajout input[type="password"]{
     margin-bottom: 15px;
     border-radius: 5px;
     -webkit-border-radius: 5px;

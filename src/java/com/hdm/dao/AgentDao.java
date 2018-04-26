@@ -12,7 +12,7 @@ import com.hdm.beans.Agent;
  * @author MED
  */
 public interface AgentDao {
-    public boolean rechercherParMatricule(String matricule);
-    public void ajouter(Agent agent);
+    public Agent rechercherParMatricule(String matricule);
+    public Agent ajouter(Agent agent);
     
 }

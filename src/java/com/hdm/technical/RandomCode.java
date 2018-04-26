@@ -14,10 +14,10 @@ import java.util.Random;
 public class RandomCode {
 
     public static String calculCode() {
-        char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
+        char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
         Random rnd = new Random();
-        StringBuilder sb = new StringBuilder((100000 + rnd.nextInt(900000)) + "-");
-        for (int i = 0; i < 5; i++) {
+        StringBuilder sb = new StringBuilder("");
+        for (int i = 0; i < 8; i++) {
             sb.append(chars[rnd.nextInt(chars.length)]);
         }
 

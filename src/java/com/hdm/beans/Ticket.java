@@ -23,6 +23,7 @@ public class Ticket {
     private String token;
     private LocalDate dateAjout;
     private LocalDate dateTraitement;
+    private Agent agent;
 
     public Ticket(int type, int statut, int urgence, String peripherique, String titre, String description, String token, LocalDate dateAjout) {
         this.type = type;
@@ -34,6 +35,20 @@ public class Ticket {
         this.token = token;
         this.dateAjout = dateAjout;
     }
+
+    public Ticket(int type, int statut,int urgence, String peripherique, String titre, String description, String token, LocalDate dateAjout, Agent agent) {
+        this.type = type;
+        this.statut = statut;
+        this.urgence = urgence;
+        this.peripherique = peripherique;
+        this.titre = titre;
+        this.description = description;
+        this.token = token;
+        this.dateAjout = dateAjout;
+        this.agent = agent;
+    }
+    
+    
 
     public int getId() {
         return id;
@@ -121,6 +136,14 @@ public class Ticket {
 
     public void setDateTraitement(LocalDate dateTraitement) {
         this.dateTraitement = dateTraitement;
+    }
+
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
     }
     
 }

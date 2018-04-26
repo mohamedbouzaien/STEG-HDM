@@ -85,6 +85,10 @@ and open the template in the editor.
         <servlet-name>RechercherAgentParMatricule</servlet-name>
         <servlet-class>com.hdm.servlets.RechercherAgentParMatricule</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SuiviTicket</servlet-name>
+        <servlet-class>com.hdm.servlets.SuiviTicket</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Acceuil</servlet-name>
         <url-pattern>/Acceuil</url-pattern>
@@ -164,5 +168,9 @@ and open the template in the editor.
     <servlet-mapping>
         <servlet-name>RechercherAgentParMatricule</servlet-name>
         <url-pattern>/RechercherAgentParMatricule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuiviTicket</servlet-name>
+        <url-pattern>/SuiviTicket</url-pattern>
     </servlet-mapping>
 </web-app>

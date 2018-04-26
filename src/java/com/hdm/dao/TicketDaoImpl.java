@@ -30,7 +30,7 @@ public class TicketDaoImpl implements TicketDao{
         try {
             connexion = daoFactory.getConnection();
             preparedStatement = connexion.prepareStatement("INSERT INTO ticket(type,statut, urgence, "
-                    + "peripherique, titre, description, token, date_ajout) VALUES (?,?,?,?,?,?,?,?);");
+                    + "peripherique, titre, description, token, date_ajout, id_agent) VALUES (?,?,?,?,?,?,?,?,?);");
             preparedStatement.setInt(1, ticket.getType());
             preparedStatement.setInt(2, ticket.getStatut());
             preparedStatement.setInt(3, ticket.getUrgence());
@@ -39,6 +39,7 @@ public class TicketDaoImpl implements TicketDao{
             preparedStatement.setString(6, ticket.getDescription());
             preparedStatement.setString(7, ticket.getToken());
             preparedStatement.setDate(8, Date.valueOf(ticket.getDateAjout()));
+            preparedStatement.setInt(9, ticket.getAgent().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

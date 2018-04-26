@@ -5,6 +5,8 @@
  */
 package com.hdm.servlets;
 
+import com.google.gson.Gson;
+import com.hdm.beans.Agent;
 import com.hdm.dao.AgentDao;
 import com.hdm.dao.DaoFactory;
 import java.io.IOException;
@@ -68,8 +70,11 @@ public class RechercherAgentParMatricule extends HttpServlet {
         String matricule = request.getParameter("matricule");
         response.setContentType("text/html");
         if (!((matricule.trim()).equals(""))) {
-            boolean searchString = agentDao.rechercherParMatricule(matricule);
-            response.getWriter().write(String.valueOf(searchString));
+            Agent agent = agentDao.rechercherParMatricule(matricule);
+            String json = new Gson().toJson(agent);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
         }
     }
 

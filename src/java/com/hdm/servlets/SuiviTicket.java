@@ -5,16 +5,8 @@
  */
 package com.hdm.servlets;
 
-import com.hdm.beans.Agent;
-import com.hdm.beans.Ticket;
-import com.hdm.dao.AgentDao;
-import com.hdm.dao.DaoFactory;
-import com.hdm.dao.TicketDao;
-import com.hdm.technical.BCrypt;
-import com.hdm.technical.RandomCode;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,14 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author MED
  */
-public class AjouterTicketUtilisateur extends HttpServlet {
-    private TicketDao ticketDao;
-    private AgentDao agentDao;
-    public void init() throws ServletException {
-        DaoFactory daoFactory = DaoFactory.getInstance();
-        this.ticketDao = daoFactory.getTicketDao();
-        this.agentDao = daoFactory.getaAgentDao();
-    }
+public class SuiviTicket extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,10 +35,10 @@ public class AjouterTicketUtilisateur extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AjouterTicketUtilisateur</title>");            
+            out.println("<title>Servlet SuiviTicket</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AjouterTicketUtilisateur at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SuiviTicket at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,8 +56,7 @@ public class AjouterTicketUtilisateur extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //request.setAttribute("code", RandomCode.calculCode());
-        this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterTicketUtilisateur.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/suiviTicket.jsp").forward(request, response);
     }
 
     /**
@@ -86,25 +70,7 @@ public class AjouterTicketUtilisateur extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Agent agent = null;
-        if (request.getParameter("nom").equals(""))
-        {
-            agent = new Agent(Integer.parseInt(request.getParameter("id_agent")));
-        }
-        else
-        {
-            agent = new Agent(request.getParameter("matricule"), request.getParameter("nom"),
-                    RandomCode.calculCode(),request.getParameter("prenom"), request.getParameter("adresse"));
-            agent = agentDao.ajouter(agent);    
-        }
-        Ticket ticket = new Ticket(0,0,Integer.parseInt(request.getParameter("urgence")),
-                request.getParameter("peripherique"),
-                request.getParameter("titre"),
-                request.getParameter("description"),
-                BCrypt.hashpw(request.getParameter("code"), BCrypt.gensalt()),
-                LocalDate.now(), agent);
-        ticketDao.ajouter(ticket);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/ajouterTicketUtilisateur.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
